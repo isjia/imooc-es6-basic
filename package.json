@@ -1,0 +1,28 @@
+{
+  "name": "imooc-es6-basic",
+  "version": "0.0.1",
+  "description": "imooc es6 basic",
+  "main": "index.js",
+  "scripts": {
+    "start": "gitbook serve ./notes ./gh-pages",
+    "build": "gitbook build ./notes ./gh-pages",
+    "deploy": "node ./scripts/deploy-gh-pages.js",
+    "publish": "npm run build && npm run deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/isjia/imooc-es6-basic.git"
+  },
+  "keywords": [
+    "ES6"
+  ],
+  "author": "Jenny Qian",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/isjia/imooc-es6-basic/issues"
+  },
+  "homepage": "https://github.com/isjia/imooc-es6-basic#readme",
+  "devDependencies": {
+    "gh-pages": "^1.0.0"
+  }
+}
