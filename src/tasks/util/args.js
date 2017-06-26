@@ -26,7 +26,9 @@ const args = yargs
   .option('port', {
     string:true,
     default:8080,
-    describe:'server prot'
+    describe:'server port'
   })
 
   .argv
+
+export default args

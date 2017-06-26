@@ -37,7 +37,7 @@ gulp.task('scripts', ()=>{
       extname: '.min.js'
     }))
     .pipe(uglify({
-      uglify({compress:{properties:false},output:('quote_keys':true)})
+      compress:{properties: false},output:{'quote_keys':true}
     }))
     .pipe(gulp.dest('server/public/js'))
     .pipe(gulpif(args.watch,livereload()))
