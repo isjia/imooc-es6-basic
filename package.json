@@ -4,7 +4,7 @@
   "description": "imooc es6 basic",
   "main": "index.js",
   "scripts": {
-    "start": "gitbook serve ./notes ./gh-pages",
+    "start": "gitbook --port 4001 --lrport 35730 serve ./notes ./gh-pages",
     "build": "gitbook build ./notes ./gh-pages",
     "deploy": "node ./scripts/deploy-gh-pages.js",
     "publish": "npm run build && npm run deploy"
@@ -23,6 +23,9 @@
   },
   "homepage": "https://github.com/isjia/imooc-es6-basic#readme",
   "devDependencies": {
-    "gh-pages": "^1.0.0"
+    "del": "^3.0.0",
+    "gh-pages": "^1.0.0",
+    "gulp-live-server": "0.0.30",
+    "gulp-util": "^3.0.8"
   }
 }
