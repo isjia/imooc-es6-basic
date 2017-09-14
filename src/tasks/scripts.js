@@ -12,7 +12,7 @@ import {log,colors} from 'gulp-util';
 import args from './util/args';
 
 gulp.task('scripts', ()=>{
-  return gulp.src(['app/js/index.js'])
+  return gulp.src(['./app/js/index.js'])
     .pipe(plumber({
       errorHandle:function(){
 
@@ -31,7 +31,7 @@ gulp.task('scripts', ()=>{
         chunks:false
       }))
     })
-    .pipe(gulp.dest('server/public/js'))
+    .pipe(gulp.dest('./server/public/js'))
     .pipe(rename({
       basename: 'cp',
       extname: '.min.js'
@@ -39,6 +39,6 @@ gulp.task('scripts', ()=>{
     .pipe(uglify({
       compress:{properties: false},output:{'quote_keys':true}
     }))
-    .pipe(gulp.dest('server/public/js'))
+    .pipe(gulp.dest('./server/public/js'))
     .pipe(gulpif(args.watch,livereload()))
 })
