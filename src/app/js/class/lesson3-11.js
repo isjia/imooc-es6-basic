@@ -80,4 +80,15 @@
 {
   let map = new Map([['a', 123],['b', 456],['c', 789]]);
   console.log('map2', map);
+  console.log('size', map.size);
+  console.log('delete', map.delete('a'), map);
+  console.log('clear', map.clear(), map);
+}
+
+{
+  let weakMap = new WeakMap();
+
+  let o = {};
+  weakMap.set(o, 123);
+  console.log(weakMap.get(o));
 }

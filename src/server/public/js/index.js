@@ -9405,6 +9405,17 @@
 	{
 	  var _map = new Map([['a', 123], ['b', 456], ['c', 789]]);
 	  console.log('map2', _map);
+	  console.log('size', _map.size);
+	  console.log('delete', _map.delete('a'), _map);
+	  console.log('clear', _map.clear(), _map);
+	}
+
+	{
+	  var weakMap = new WeakMap();
+
+	  var o = {};
+	  weakMap.set(o, 123);
+	  console.log(weakMap.get(o));
 	}
 
 /***/ })
