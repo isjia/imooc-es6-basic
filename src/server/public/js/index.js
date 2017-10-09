@@ -9256,166 +9256,117 @@
 
 	'use strict';
 
-	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 	{
-	  var list = new Set();
-	  list.add(5);
-	  list.add(7);
-
-	  console.log('size', list.size);
-	}
-
-	{
-	  var arr = [1, 2, 3, 4, 5];
-	  var _list = new Set(arr);
-
-	  console.log('size', _list.size);
-	}
-
-	{
-	  var _list2 = new Set();
-	  _list2.add(1);
-	  _list2.add(2);
-	  _list2.add(1);
-
-	  console.log('list', _list2);
-
-	  // 利用 set 的特性去重
-	  var _arr = [1, 2, 3, 1, '2'];
-	  var list2 = new Set(_arr);
-	  console.log('list2', list2);
-	}
-
-	{
-	  var _arr2 = ['add', 'del', 'clear', 'has'];
-	  var _list3 = new Set(_arr2);
-
-	  console.log('has', _list3.has('add'));
-	  console.log('del', _list3.delete('add'), _list3);
-	  _list3.clear();
-	  console.log('clear', _list3);
-	}
-
-	{
-	  var _arr3 = ['add', 'del', 'clear', 'has'];
-	  var _list4 = new Set(_arr3);
-
-	  var _iteratorNormalCompletion = true;
-	  var _didIteratorError = false;
-	  var _iteratorError = undefined;
-
-	  try {
-	    for (var _iterator = _list4.keys()[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-	      var key = _step.value;
-
-	      console.log('keys', key);
-	    }
-	  } catch (err) {
-	    _didIteratorError = true;
-	    _iteratorError = err;
-	  } finally {
-	    try {
-	      if (!_iteratorNormalCompletion && _iterator.return) {
-	        _iterator.return();
-	      }
-	    } finally {
-	      if (_didIteratorError) {
-	        throw _iteratorError;
-	      }
-	    }
-	  }
-
-	  var _iteratorNormalCompletion2 = true;
-	  var _didIteratorError2 = false;
-	  var _iteratorError2 = undefined;
-
-	  try {
-	    for (var _iterator2 = _list4.values()[Symbol.iterator](), _step2; !(_iteratorNormalCompletion2 = (_step2 = _iterator2.next()).done); _iteratorNormalCompletion2 = true) {
-	      var value = _step2.value;
-
-	      console.log('values', value);
-	    }
-	  } catch (err) {
-	    _didIteratorError2 = true;
-	    _iteratorError2 = err;
-	  } finally {
-	    try {
-	      if (!_iteratorNormalCompletion2 && _iterator2.return) {
-	        _iterator2.return();
-	      }
-	    } finally {
-	      if (_didIteratorError2) {
-	        throw _iteratorError2;
-	      }
-	    }
-	  }
-
-	  var _iteratorNormalCompletion3 = true;
-	  var _didIteratorError3 = false;
-	  var _iteratorError3 = undefined;
-
-	  try {
-	    for (var _iterator3 = _list4.entries()[Symbol.iterator](), _step3; !(_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done); _iteratorNormalCompletion3 = true) {
-	      var _step3$value = _slicedToArray(_step3.value, 2),
-	          _key = _step3$value[0],
-	          _value = _step3$value[1];
-
-	      console.log('items', _key, _value);
-	    }
-	  } catch (err) {
-	    _didIteratorError3 = true;
-	    _iteratorError3 = err;
-	  } finally {
-	    try {
-	      if (!_iteratorNormalCompletion3 && _iterator3.return) {
-	        _iterator3.return();
-	      }
-	    } finally {
-	      if (_didIteratorError3) {
-	        throw _iteratorError3;
-	      }
-	    }
-	  }
-
-	  _list4.forEach(function (item) {
-	    console.log(item);
-	  });
-	}
-
-	{
-	  var weakList = new WeakSet();
-	  // 数据类型只能是对象，弱引用，无法使用垃圾回收机制
-	  // 没有 size 属性
-
-	  var arg = {};
-
-	  weakList.add(arg);
-	  // weakList.add(2); Invalid Value
-	  console.log('weakList', weakList);
-	}
-
-	{
+	  // 数据结构的横向对比 Map vs Array ：增删改查
 	  var map = new Map();
-	  var _arr4 = ['123'];
-	  map.set(_arr4, 456);
-	  console.log('map', map, map.get(_arr4));
+	  var array = [];
+
+	  // 增
+	  map.set('t', 1);
+	  array.push({ t: 1 });
+
+	  console.info('map vs array: add ', map, array);
+
+	  // 查
+	  var map_exist = map.has('t');
+	  var array_exist = array.find(function (item) {
+	    return item.t;
+	  }); //returns the value of the first element in the array that satisfies the provided testing function
+
+	  console.info('map vs array: search ', map_exist, array_exist);
+
+	  // 改
+	  map.set('t', 2);
+	  array.forEach(function (item) {
+	    return item.t ? item.t = 2 : '';
+	  });
+
+	  console.info('map vs array: change: ', map, array);
+
+	  // 删
+	  map.delete('t');
+	  var index = array.findIndex(function (item) {
+	    return item.t;
+	  });
+	  array.splice(index, 1);
+
+	  console.info('map vs array: delete ', map, array);
 	}
 
 	{
-	  var _map = new Map([['a', 123], ['b', 456], ['c', 789]]);
-	  console.log('map2', _map);
-	  console.log('size', _map.size);
-	  console.log('delete', _map.delete('a'), _map);
-	  console.log('clear', _map.clear(), _map);
+	  // 数据结构的横向对比 Set vs Array
+	  var set = new Set();
+	  var _array = [];
+
+	  // add
+	  set.add({ t: 1 });
+	  _array.push({ t: 1 });
+
+	  console.info('set vs array: add ', set, _array);
+
+	  // search
+	  var o = { b: 2 };
+	  set.add(o);
+	  var set_exist = set.has(o); // 注意这里是指数引用
+	  var _array_exist = _array.find(function (item) {
+	    return item.t;
+	  }); //returns the value of the first element in the array that satisfies the provided testing function
+
+	  console.info('set vs array: search ', set_exist, _array_exist);
+
+	  // change
+	  set.forEach(function (item) {
+	    return item.t ? item.t = 2 : '';
+	  });
+	  _array.forEach(function (item) {
+	    return item.t ? item.t = 2 : '';
+	  });
+
+	  console.info('set vs array: change ', set, _array);
+
+	  // delete
+	  set.forEach(function (item) {
+	    return item.t ? set.delete(item) : '';
+	  });
+	  var _index = _array.findIndex(function (item) {
+	    return item.t;
+	  });
+	  _array.splice(_index, 1);
+	  console.info('set vs array: delete ', set, _array);
 	}
 
 	{
-	  var weakMap = new WeakMap();
+	  // Map vs Set vs Object
+	  var item = { t: 1 };
+	  var _map = new Map();
+	  var _set = new Set();
+	  var obj = new Object();
 
-	  var o = {};
-	  weakMap.set(o, 123);
-	  console.log(weakMap.get(o));
+	  // add
+	  _map.set('t', 1);
+	  _set.add(item);
+	  obj['t'] = 1;
+
+	  console.info('map-set-object-add ', _map, _set, obj);
+
+	  // search
+	  console.info({
+	    map_exist: _map.has('t'),
+	    set_exist: _set.has(item),
+	    obj_exist: 't' in obj
+	  });
+
+	  // modify
+	  _map.set('t', 2);
+	  item.t = 2; //直接修改被引用的对象
+	  obj['t'] = 2;
+	  console.info('map-set-object-modify ', _map, _set, obj);
+
+	  // delete
+	  _map.delete('t');
+	  _set.delete(item);
+	  delete obj['t'];
+	  console.info('map-set-object-delete ', _map, _set, obj);
 	}
 
 /***/ })
