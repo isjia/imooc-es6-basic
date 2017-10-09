@@ -257,6 +257,75 @@
 <li>Map &#x7684;&#x7528;&#x6CD5;&#xFF1A;key&#x53EF;&#x4EE5;&#x662F;&#x4EFB;&#x610F;&#x7684;&#x7C7B;&#x578B;</li>
 <li>WeakMap &#x7684;&#x7528;&#x6CD5;</li>
 </ul>
+<h2 id="312-map-set-&#x4E0E;&#x6570;&#x7EC4;&#x548C;&#x5BF9;&#x8C61;&#x7684;&#x6BD4;&#x8F83;">3.12 map-set &#x4E0E;&#x6570;&#x7EC4;&#x548C;&#x5BF9;&#x8C61;&#x7684;&#x6BD4;&#x8F83;</h2>
+<h4 id="map-&#x4E0E;-array-&#x7684;&#x5BF9;&#x6BD4;">Map &#x4E0E; Array &#x7684;&#x5BF9;&#x6BD4;</h4>
+<p><strong>&#x589E;</strong></p>
+<pre><code class="lang-javascript">map.set(<span class="hljs-string">&apos;t&apos;</span>, <span class="hljs-number">1</span>);
+array.push ({t:<span class="hljs-number">1</span>});
+</code></pre>
+<p><strong>&#x67E5;</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> map_exist = map.has(<span class="hljs-string">&apos;t&apos;</span>); <span class="hljs-comment">//&#x8FD4;&#x56DE;boolean</span>
+<span class="hljs-keyword">let</span> array_exist= array.find(item =&gt; item.t); <span class="hljs-comment">//&#x8FD4;&#x56DE;&#x627E;&#x5230;&#x7684;&#x503C;&#xFF0C;returns the value of the first element in the array that satisfies the provided testing function</span>
+</code></pre>
+<p><strong>&#x6539;</strong></p>
+<pre><code class="lang-javascript">map.set(<span class="hljs-string">&apos;t&apos;</span>, <span class="hljs-number">2</span>);
+array.forEach(item=&gt;item.t? item.t=<span class="hljs-number">2</span>: <span class="hljs-string">&apos;&apos;</span>);
+</code></pre>
+<p><strong>&#x5220;</strong></p>
+<pre><code class="lang-javascript">map.delete(<span class="hljs-string">&apos;t&apos;</span>);
+<span class="hljs-keyword">let</span> index = array.findIndex(item =&gt; item.t);
+array.splice(index, <span class="hljs-number">1</span>);
+</code></pre>
+<h4 id="set-&#x4E0E;-array-&#x7684;&#x5BF9;&#x6BD4;">Set &#x4E0E; Array &#x7684;&#x5BF9;&#x6BD4;</h4>
+<p><strong>&#x589E;</strong></p>
+<pre><code class="lang-javascript">set.add({t:<span class="hljs-number">1</span>});
+array.push({t:<span class="hljs-number">1</span>});
+</code></pre>
+<p><strong>&#x67E5;</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> o = {b:<span class="hljs-number">2</span>};
+set.add(o);
+<span class="hljs-keyword">let</span> set_exist = set.has(o); <span class="hljs-comment">// &#x6CE8;&#x610F;&#x8FD9;&#x91CC;&#x662F;&#x6307;&#x6570;&#x5F15;&#x7528;</span>
+<span class="hljs-keyword">let</span> array_exist= array.find(item =&gt; item.t); <span class="hljs-comment">//returns the value of the first element in the array that satisfies the provided testing function</span>
+</code></pre>
+<p><strong>&#x6539;</strong></p>
+<pre><code class="lang-javascript">set.forEach(item=&gt;item.t ? item.t = <span class="hljs-number">2</span>: <span class="hljs-string">&apos;&apos;</span>);
+array.forEach(item=&gt;item.t? item.t=<span class="hljs-number">2</span>: <span class="hljs-string">&apos;&apos;</span>);
+</code></pre>
+<p><strong>&#x5220;</strong></p>
+<pre><code class="lang-javascript">set.forEach(item=&gt;item.t?set.delete(item):<span class="hljs-string">&apos;&apos;</span>);
+<span class="hljs-keyword">let</span> index = array.findIndex(item =&gt; item.t);
+array.splice(index, <span class="hljs-number">1</span>);
+</code></pre>
+<h4 id="mapsetobject-&#x7684;&#x5BF9;&#x6BD4;">Map/Set/Object &#x7684;&#x5BF9;&#x6BD4;</h4>
+<p><strong>&#x589E;</strong></p>
+<pre><code class="lang-javascript">map.set(<span class="hljs-string">&apos;t&apos;</span>, <span class="hljs-number">1</span>);
+set.add(item);
+obj[<span class="hljs-string">&apos;t&apos;</span>] = <span class="hljs-number">1</span>;
+</code></pre>
+<p><strong>&#x67E5;</strong></p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.info({
+  map_exist:map.has(<span class="hljs-string">&apos;t&apos;</span>),
+  set_exist:set.has(item),
+  obj_exist:<span class="hljs-string">&apos;t&apos;</span> <span class="hljs-keyword">in</span> obj
+})
+</code></pre>
+<p><strong>&#x6539;</strong></p>
+<pre><code class="lang-javascript">map.set(<span class="hljs-string">&apos;t&apos;</span>, <span class="hljs-number">2</span>);
+item.t = <span class="hljs-number">2</span>; <span class="hljs-comment">//&#x76F4;&#x63A5;&#x4FEE;&#x6539;&#x88AB;&#x5F15;&#x7528;&#x7684;&#x5BF9;&#x8C61;</span>
+obj[<span class="hljs-string">&apos;t&apos;</span>] = <span class="hljs-number">2</span>;
+</code></pre>
+<p><strong>&#x5220;</strong></p>
+<pre><code class="lang-javascript">map.delete(<span class="hljs-string">&apos;t&apos;</span>);
+set.delete(item);
+<span class="hljs-keyword">delete</span> obj[<span class="hljs-string">&apos;t&apos;</span>];
+</code></pre>
+<p><strong>&#x4F7F;&#x7528;&#x5EFA;&#x8BAE;</strong></p>
+<ul>
+<li>&#x80FD;&#x4F7F;&#x7528; map &#x4E0D;&#x4F7F;&#x7528; array</li>
+<li>&#x5BF9;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x8003;&#x8651;&#x552F;&#x4E00;&#x6027;&#x4F7F;&#x7528; set</li>
+<li>&#x653E;&#x5F03;&#x4F7F;&#x7528; object &#x505A;&#x5B58;&#x50A8;</li>
+<li>&#x653E;&#x5F03;&#x4F7F;&#x7528; array &#x505A;&#x5B58;&#x50A8;</li>
+</ul>
 
                                 
                                 </section>
@@ -296,7 +365,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第三章 es6 语法","level":"1.4","depth":1,"previous":{"title":"第二章 项目构建","level":"1.3","depth":1,"path":"02.md","ref":"02.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"03.md","mtime":"2017-09-20T06:59:41.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-09-21T05:50:40.403Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第三章 es6 语法","level":"1.4","depth":1,"previous":{"title":"第二章 项目构建","level":"1.3","depth":1,"path":"02.md","ref":"02.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"03.md","mtime":"2017-10-09T08:04:10.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-10-09T08:04:38.101Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
