@@ -9256,138 +9256,124 @@
 
 	'use strict';
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 	{
-	  // 类的定义和生成示例
-	  var Parent = function Parent() {
-	    var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Jenny';
-
-	    _classCallCheck(this, Parent);
-
-	    this.name = name;
+	  var ajax = function ajax(cb) {
+	    console.log('i am ajax');
+	    setTimeout(function () {
+	      cb && cb.call();
+	    }, 3000);
 	  };
 
-	  var v_parent = new Parent('money');
-	  console.log('new class', v_parent);
+	  ajax(function () {
+	    console.log('i am cb');
+	  });
 	}
 
 	{
-	  // 继承
-	  var _Parent = function _Parent() {
-	    var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Jenny';
-
-	    _classCallCheck(this, _Parent);
-
-	    this.name = name;
+	  var _ajax = function _ajax() {
+	    console.log('i am ajax2');
+	    return new Promise(function (resolve, reject) {
+	      setTimeout(function () {
+	        resolve();
+	      }, 4000);
+	    });
 	  };
 
-	  var Child = function (_Parent2) {
-	    _inherits(Child, _Parent2);
-
-	    function Child() {
-	      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'baby';
-
-	      _classCallCheck(this, Child);
-
-	      var _this = _possibleConstructorReturn(this, (Child.__proto__ || Object.getPrototypeOf(Child)).call(this, name));
-
-	      _this.type = 'child';
-	      return _this;
-	    }
-
-	    return Child;
-	  }(_Parent);
-
-	  console.log('extends', new Child('money'));
+	  _ajax().then(function () {
+	    console.log('Promise', 'i am then');
+	  });
 	}
 
 	{
-	  // getter, setter 是属性不是方法
-	  var _Parent3 = function () {
-	    function _Parent3() {
-	      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Jenny';
+	  var _ajax2 = function _ajax2() {
+	    console.log('i am ajax3');
+	    return new Promise(function (resolve, reject) {
+	      setTimeout(function () {
+	        resolve();
+	      }, 4000);
+	    });
+	  };
 
-	      _classCallCheck(this, _Parent3);
-
-	      this.name = name;
-	    }
-	    // get是属性，不是方法
-
-
-	    _createClass(_Parent3, [{
-	      key: 'longName',
-	      get: function get() {
-	        return 'hello ' + this.name;
-	      },
-	      set: function set(value) {
-	        this.name = value;
-	      }
-	    }]);
-
-	    return _Parent3;
-	  }();
-
-	  var v = new _Parent3();
-	  console.log('long name', v.longName);
-	  v.longName = 'longlongName';
-	  console.log('long long name', v.longName);
+	  _ajax2().then(function () {
+	    return new Promise(function (resolve, reject) {
+	      setTimeout(function () {
+	        resolve();
+	      }, 5000);
+	    });
+	  }).then(function () {
+	    console.log('time out 5000');
+	  });
 	}
 
 	{
-	  // 静态方法
-	  var _Parent4 = function () {
-	    function _Parent4() {
-	      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Jenny';
+	  // 捕获异常
 
-	      _classCallCheck(this, _Parent4);
-
-	      this.name = name;
-	    }
-
-	    _createClass(_Parent4, null, [{
-	      key: 'tell',
-	      value: function tell() {
-	        console.log('tell');
+	  var _ajax3 = function _ajax3(num) {
+	    console.log('执行4');
+	    return new Promise(function (resolve, reject) {
+	      if (num > 5) {
+	        resolve();
+	      } else {
+	        throw new Error('出错了');
 	      }
-	    }]);
+	    });
+	  };
 
-	    return _Parent4;
-	  }();
-
-	  _Parent4.tell();
+	  _ajax3(6).then(function () {
+	    console.log('log', 6);
+	  }).catch(function (err) {
+	    console.log('catch', err);
+	  });
 	}
 
 	{
-	  // 静态属性
-	  var _Parent5 = function () {
-	    function _Parent5() {
-	      var name = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'Jenny';
+	  // Promise All
+	  var loadImg = function loadImg(src) {
+	    return new Promise(function (resolve, reject) {
+	      var img = document.createElement('img');
 
-	      _classCallCheck(this, _Parent5);
+	      img.src = src;
+	      img.onload = function () {
+	        resolve(img);
+	      };
+	      img.onerror = function (err) {
+	        reject(err);
+	      };
+	    });
+	  };
 
-	      this.name = name;
-	    }
+	  var showImgs = function showImgs(imgs) {
+	    imgs.forEach(function (img) {
+	      document.body.appendChild(img);
+	    });
+	  };
 
-	    _createClass(_Parent5, null, [{
-	      key: 'tell',
-	      value: function tell() {
-	        console.log('tell');
-	      }
-	    }]);
+	  Promise.all([loadImg('http://i4.buimg.com/567571/df1ef0720bea6832.png'), loadImg('http://i4.buimg.com/567571/2b07ee25b08930ba.png'), loadImg('http://i2.buimg.com/567571/5eb8190d6b2a1c9c.png')]).then(showImgs);
+	}
 
-	    return _Parent5;
-	  }();
+	{
+	  // Promise race
+	  var _loadImg = function _loadImg(src) {
+	    return new Promise(function (resolve, reject) {
+	      var img = document.createElement('img');
 
-	  _Parent5.type = 'test';
+	      img.src = src;
+	      img.onload = function () {
+	        resolve(img);
+	      };
+	      img.onerror = function (err) {
+	        reject(err);
+	      };
+	    });
+	  };
 
-	  console.log('静态属性', _Parent5.type);
+	  var showImg = function showImg(img) {
+	    var p = document.createElement('p');
+	    p.appendChild(img);
+	    document.body.appendChild(p);
+	  };
+
+	  Promise.race([_loadImg('http://i4.buimg.com/567571/df1ef0720bea6832.png'), _loadImg('http://i4.buimg.com/567571/2b07ee25b08930ba.png'), _loadImg('http://i2.buimg.com/567571/5eb8190d6b2a1c9c.png')]).then(showImg);
 	}
 
 /***/ })

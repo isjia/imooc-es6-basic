@@ -1,5 +1,5 @@
 import 'babel-polyfill'
-import './class/lesson3-14'
+import './class/lesson3-15'
 
 // class Test{
 //     constructor(){
@@ -10,3 +10,4 @@ import './class/lesson3-14'
 // let test = new Test();
 //
 // document.body.innerHTML = test.a;
+// document.body.innerHTML = 'hello world'
