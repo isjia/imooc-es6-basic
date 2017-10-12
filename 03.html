@@ -386,6 +386,104 @@ set.delete(item);
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;reflect-has&apos;</span>, <span class="hljs-built_in">Reflect</span>.has(obj, <span class="hljs-string">&apos;name&apos;</span>));
 }
 </code></pre>
+<h2 id="314-&#x7C7B;&#x4E0E;&#x5BF9;&#x8C61;">3.14 &#x7C7B;&#x4E0E;&#x5BF9;&#x8C61;</h2>
+<p><strong>&#x7C7B;&#x7684;&#x6982;&#x5FF5;</strong></p>
+<ul>
+<li>&#x57FA;&#x672C;&#x8BED;&#x6CD5;</li>
+<li>&#x7C7B;&#x7684;&#x7EE7;&#x627F;</li>
+<li>&#x9759;&#x6001;&#x65B9;&#x6CD5;</li>
+<li>&#x9759;&#x6001;&#x5C5E;&#x6027;</li>
+<li>getter</li>
+<li>setter</li>
+</ul>
+<p><strong>&#x6784;&#x9020;&#x51FD;&#x6570;&#x548C;&#x5B9E;&#x4F8B;</strong></p>
+<pre><code class="lang-javascript">{
+  <span class="hljs-comment">// &#x7C7B;&#x7684;&#x5B9A;&#x4E49;&#x548C;&#x751F;&#x6210;&#x793A;&#x4F8B;</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{
+    <span class="hljs-keyword">constructor</span>(name=&apos;Jenny&apos;) {
+      <span class="hljs-keyword">this</span>.name = name;
+    }
+  }
+
+  <span class="hljs-keyword">let</span> v_parent = <span class="hljs-keyword">new</span> Parent(<span class="hljs-string">&apos;money&apos;</span>);
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;new class&apos;</span>, v_parent);
+}
+</code></pre>
+<p><strong>&#x7C7B;&#x7684;&#x7EE7;&#x627F;</strong></p>
+<pre><code class="lang-javascript">{
+  <span class="hljs-comment">// &#x7EE7;&#x627F;</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{
+    <span class="hljs-keyword">constructor</span>(name=&apos;Jenny&apos;) {
+      <span class="hljs-keyword">this</span>.name = name;
+    }
+  }
+
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span> </span>{
+    <span class="hljs-keyword">constructor</span>(name=&apos;baby&apos;) {
+      <span class="hljs-keyword">super</span>(name);
+      <span class="hljs-keyword">this</span>.type = <span class="hljs-string">&apos;child&apos;</span>;
+    }
+  }
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;extends&apos;</span>, <span class="hljs-keyword">new</span> Child(<span class="hljs-string">&apos;money&apos;</span>));
+}
+</code></pre>
+<p><strong>getter and setter</strong></p>
+<pre><code class="lang-javascript">{
+  <span class="hljs-comment">// getter, setter &#x662F;&#x5C5E;&#x6027;&#x4E0D;&#x662F;&#x65B9;&#x6CD5;</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{
+    <span class="hljs-keyword">constructor</span>(name=&apos;Jenny&apos;) {
+      <span class="hljs-keyword">this</span>.name = name;
+    }
+    <span class="hljs-comment">// get&#x662F;&#x5C5E;&#x6027;&#xFF0C;&#x4E0D;&#x662F;&#x65B9;&#x6CD5;</span>
+    get longName() {
+      <span class="hljs-keyword">return</span> <span class="hljs-string">&apos;hello &apos;</span> + <span class="hljs-keyword">this</span>.name;
+    }
+
+    set longName(value){
+      <span class="hljs-keyword">this</span>.name=value;
+    }
+  }
+
+  <span class="hljs-keyword">let</span> v = <span class="hljs-keyword">new</span> Parent();
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;long name&apos;</span>, v.longName);
+  v.longName=<span class="hljs-string">&apos;longlongName&apos;</span>;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;long long name&apos;</span>, v.longName);
+}
+</code></pre>
+<p><strong>&#x9759;&#x6001;&#x65B9;&#x6CD5;</strong></p>
+<pre><code class="lang-javascript">{
+  <span class="hljs-comment">// &#x9759;&#x6001;&#x65B9;&#x6CD5;</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{
+    <span class="hljs-keyword">constructor</span>(name=&apos;Jenny&apos;) {
+      <span class="hljs-keyword">this</span>.name = name;
+    }
+
+    <span class="hljs-keyword">static</span> tell(){
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;tell&apos;</span>);
+    }
+  }
+
+  Parent.tell();
+}
+</code></pre>
+<p><strong>&#x9759;&#x6001;&#x5C5E;&#x6027;</strong></p>
+<pre><code class="lang-javascript">{
+  <span class="hljs-comment">// &#x9759;&#x6001;&#x5C5E;&#x6027;</span>
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{
+    <span class="hljs-keyword">constructor</span>(name=&apos;Jenny&apos;) {
+      <span class="hljs-keyword">this</span>.name = name;
+    }
+
+    <span class="hljs-keyword">static</span> tell(){
+      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;tell&apos;</span>);
+    }
+  }
+
+  Parent.type=<span class="hljs-string">&apos;test&apos;</span>;
+
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;&#x9759;&#x6001;&#x5C5E;&#x6027;&apos;</span>, Parent.type);
+}
+</code></pre>
 
                                 
                                 </section>
@@ -425,7 +523,7 @@ set.delete(item);
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第三章 es6 语法","level":"1.4","depth":1,"previous":{"title":"第二章 项目构建","level":"1.3","depth":1,"path":"02.md","ref":"02.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"03.md","mtime":"2017-10-12T03:28:16.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-10-12T03:31:05.200Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第三章 es6 语法","level":"1.4","depth":1,"previous":{"title":"第二章 项目构建","level":"1.3","depth":1,"path":"02.md","ref":"02.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"03.md","mtime":"2017-10-12T06:10:31.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-10-12T06:14:18.066Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
