@@ -9256,117 +9256,139 @@
 
 	'use strict';
 
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
 	{
-	  // 数据结构的横向对比 Map vs Array ：增删改查
-	  var map = new Map();
-	  var array = [];
+	  // 一个原始对象，用来存储真是的数据
+	  var obj = {
+	    time: '2017-10-10',
+	    name: 'wiz',
+	    _r: 123
+	  };
 
-	  // 增
-	  map.set('t', 1);
-	  array.push({ t: 1 });
+	  // 代理商
+	  var monitor = new Proxy(obj, {
+	    // 拦截（代理）对象属性的读取
+	    get: function get(target, key) {
+	      return target[key].replace('2017', '2018');
+	    },
 
-	  console.info('map vs array: add ', map, array);
 
-	  // 查
-	  var map_exist = map.has('t');
-	  var array_exist = array.find(function (item) {
-	    return item.t;
-	  }); //returns the value of the first element in the array that satisfies the provided testing function
+	    // 拦截（代理）对象属性的设置
+	    set: function set(target, key, value) {
+	      if (key === 'name') {
+	        return target[key] = value;
+	      } else {
+	        return target[key];
+	      }
+	    },
 
-	  console.info('map vs array: search ', map_exist, array_exist);
 
-	  // 改
-	  map.set('t', 2);
-	  array.forEach(function (item) {
-	    return item.t ? item.t = 2 : '';
+	    // 拦截（代理） key in object 操作
+	    has: function has(target, key) {
+	      if (key === 'name') {
+	        return target[key];
+	      } else {
+	        return false;
+	      }
+	    },
+
+	    // 拦截 delete
+	    deleteProperty: function deleteProperty(target, key) {
+	      if (key.indexOf('_') > -1) {
+	        delete target[key];
+	        return true;
+	      } else {
+	        return target[key];
+	      }
+	    },
+
+	    // 拦截 Object.keys, Object.getOwnPropertySymbols, Object.getOwnPropertyNames
+	    ownKeys: function ownKeys(target) {
+	      return Object.keys(target).filter(function (item) {
+	        return item != 'time';
+	      });
+	    }
 	  });
 
-	  console.info('map vs array: change: ', map, array);
+	  // 用户操作monitor中的方法
+	  console.log('get', monitor.time);
 
-	  // 删
-	  map.delete('t');
-	  var index = array.findIndex(function (item) {
-	    return item.t;
-	  });
-	  array.splice(index, 1);
+	  monitor.time = '2018';
+	  console.log('set', monitor.time);
 
-	  console.info('map vs array: delete ', map, array);
+	  monitor.name = 'wizDigital';
+	  console.log('set', monitor.name);
+
+	  console.log('has name property', 'name' in monitor);
+	  console.log('has time property', 'time' in monitor);
+
+	  // delete monitor.time;
+	  // console.log('delete time property ', monitor);
+	  //
+	  // delete monitor._r;
+	  // console.log('delete _r property ', monitor);
+	  console.log('ownKeys', Object.keys(monitor));
 	}
 
 	{
-	  // 数据结构的横向对比 Set vs Array
-	  var set = new Set();
-	  var _array = [];
+	  // 一个原始对象，用来存储真是的数据
+	  var _obj = {
+	    time: '2017-10-10',
+	    name: 'wiz',
+	    _r: 123
+	  };
 
-	  // add
-	  set.add({ t: 1 });
-	  _array.push({ t: 1 });
-
-	  console.info('set vs array: add ', set, _array);
-
-	  // search
-	  var o = { b: 2 };
-	  set.add(o);
-	  var set_exist = set.has(o); // 注意这里是指数引用
-	  var _array_exist = _array.find(function (item) {
-	    return item.t;
-	  }); //returns the value of the first element in the array that satisfies the provided testing function
-
-	  console.info('set vs array: search ', set_exist, _array_exist);
-
-	  // change
-	  set.forEach(function (item) {
-	    return item.t ? item.t = 2 : '';
-	  });
-	  _array.forEach(function (item) {
-	    return item.t ? item.t = 2 : '';
-	  });
-
-	  console.info('set vs array: change ', set, _array);
-
-	  // delete
-	  set.forEach(function (item) {
-	    return item.t ? set.delete(item) : '';
-	  });
-	  var _index = _array.findIndex(function (item) {
-	    return item.t;
-	  });
-	  _array.splice(_index, 1);
-	  console.info('set vs array: delete ', set, _array);
+	  console.log('reflect-get', Reflect.get(_obj, 'time'));
+	  Reflect.set(_obj, 'name', 'mooc');
+	  console.log('reflect-set', _obj);
+	  console.log('reflect-has', Reflect.has(_obj, 'name'));
 	}
 
+	// 使用场景举例
 	{
-	  // Map vs Set vs Object
-	  var item = { t: 1 };
-	  var _map = new Map();
-	  var _set = new Set();
-	  var obj = new Object();
+	  var validator = function validator(target, _validator) {
+	    return new Proxy(target, {
+	      _validator: _validator,
+	      set: function set(target, key, value, proxy) {
+	        if (target.hasOwnProperty[key]) {
+	          var va = this._validator[key];
+	          if (!!va(value)) {
+	            return Reflect.set(target, key, value, proxy);
+	          } else {
+	            throw Error('\u4E0D\u80FD\u8BBE\u7F6E' + key + '\u5230' + value);
+	          }
+	        } else {
+	          throw Error(key + ' \u4E0D\u5B58\u5728');
+	        }
+	      }
+	    });
+	  };
 
-	  // add
-	  _map.set('t', 1);
-	  _set.add(item);
-	  obj['t'] = 1;
+	  var personValidators = {
+	    name: function name(val) {
+	      return typeof val === 'string';
+	    },
+	    age: function age(val) {
+	      return typeof val === 'number' && val > 18;
+	    }
+	  };
 
-	  console.info('map-set-object-add ', _map, _set, obj);
+	  var Person = function Person(name, age) {
+	    _classCallCheck(this, Person);
 
-	  // search
-	  console.info({
-	    map_exist: _map.has('t'),
-	    set_exist: _set.has(item),
-	    obj_exist: 't' in obj
-	  });
+	    this.name = name;
+	    this.age = age;
+	    return validator(this, personValidators);
+	  };
 
-	  // modify
-	  _map.set('t', 2);
-	  item.t = 2; //直接修改被引用的对象
-	  obj['t'] = 2;
-	  console.info('map-set-object-modify ', _map, _set, obj);
+	  var person = new Person('lilie', 30);
 
-	  // delete
-	  _map.delete('t');
-	  _set.delete(item);
-	  delete obj['t'];
-	  console.info('map-set-object-delete ', _map, _set, obj);
+	  console.info('person', person);
+
+	  // person.name = 48;
+	  person.name = "LeiLei";
+	  console.info('person-leilei', person);
 	}
 
 /***/ })
