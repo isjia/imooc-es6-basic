@@ -1,5 +1,5 @@
 import 'babel-polyfill'
-import './class/lesson3-13'
+import './class/lesson3-14'
 
 // class Test{
 //     constructor(){
