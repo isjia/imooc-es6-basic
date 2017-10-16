@@ -591,11 +591,48 @@ set.delete(item);
 }
 </code></pre>
 <h2 id="316-iterator">3.16 Iterator</h2>
-<ul>
-<li>&#x4EC0;&#x4E48;&#x662F; Iterator</li>
-<li>Iterator &#x7684;&#x57FA;&#x672C;&#x7528;&#x6CD5;</li>
-<li>for...of</li>
-</ul>
+<h4 id="&#x4EC0;&#x4E48;&#x662F;-iterator">&#x4EC0;&#x4E48;&#x662F; Iterator</h4>
+<p>&#x4F7F;&#x7528;&#x540C;&#x4E00;&#x79CD;&#x63A5;&#x53E3;&#x904D;&#x5386;&#x8BFB;&#x53D6;&#x4E0D;&#x540C;&#x7684;&#x6570;&#x636E;&#x7ED3;&#x6784;&#x3002;</p>
+<h4 id="iterator-&#x7684;&#x57FA;&#x672C;&#x7528;&#x6CD5;">Iterator &#x7684;&#x57FA;&#x672C;&#x7528;&#x6CD5;</h4>
+<pre><code class="lang-javascript">{
+  <span class="hljs-keyword">let</span> obj = {
+    start: [<span class="hljs-number">1</span>,<span class="hljs-number">3</span>,<span class="hljs-number">5</span>],
+    end: [<span class="hljs-number">7</span>,<span class="hljs-number">9</span>,<span class="hljs-number">11</span>],
+    [<span class="hljs-built_in">Symbol</span>.iterator](){
+      <span class="hljs-keyword">let</span> self = <span class="hljs-keyword">this</span>;
+      <span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>;
+      <span class="hljs-keyword">let</span> arr=self.start.concat(self.end);
+      <span class="hljs-keyword">let</span> len=arr.length;
+      <span class="hljs-keyword">return</span> {
+        next(){
+          <span class="hljs-keyword">if</span>(index&lt;len){
+            <span class="hljs-keyword">return</span> {
+              value:arr[index++],
+              done:<span class="hljs-literal">false</span>
+            }
+          } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span> {
+              value:arr[index++],
+              done: <span class="hljs-literal">true</span>
+            }
+          }
+        }
+      }
+    }
+  }
+  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> key <span class="hljs-keyword">of</span> obj){
+    <span class="hljs-built_in">console</span>.log(key);
+  }
+}
+</code></pre>
+<h4 id="forof-&#x5FAA;&#x73AF;">for...of &#x5FAA;&#x73AF;</h4>
+<pre><code class="lang-javascript">{
+  <span class="hljs-keyword">let</span> arr=[<span class="hljs-string">&apos;hello&apos;</span>, <span class="hljs-string">&apos;world&apos;</span>];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> value <span class="hljs-keyword">of</span> arr){
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;value of array&apos;</span>, value);
+  }
+}
+</code></pre>
 
                                 
                                 </section>
@@ -635,7 +672,7 @@ set.delete(item);
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第三章 es6 语法","level":"1.4","depth":1,"previous":{"title":"第二章 项目构建","level":"1.3","depth":1,"path":"02.md","ref":"02.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"03.md","mtime":"2017-10-16T06:16:53.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-10-16T06:17:07.948Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第三章 es6 语法","level":"1.4","depth":1,"previous":{"title":"第二章 项目构建","level":"1.3","depth":1,"path":"02.md","ref":"02.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"03.md","mtime":"2017-10-16T06:48:10.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-10-16T06:49:29.730Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
