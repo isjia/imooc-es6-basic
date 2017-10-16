@@ -484,6 +484,118 @@ set.delete(item);
   <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;&#x9759;&#x6001;&#x5C5E;&#x6027;&apos;</span>, Parent.type);
 }
 </code></pre>
+<h2 id="315-promise">3.15 Promise</h2>
+<h4 id="promise">Promise</h4>
+<p>Promise &#x5C31;&#x662F;&#x7528;&#x6765;&#x89E3;&#x51B3;&#x5F02;&#x6B65;&#x64CD;&#x4F5C;&#x95EE;&#x9898;&#x7684;&#x3002;</p>
+<ul>
+<li>&#x4EC0;&#x4E48;&#x662F;&#x5F02;&#x6B65;</li>
+<li>Promise &#x7684;&#x4F5C;&#x7528;</li>
+<li>Promise &#x7684;&#x57FA;&#x672C;&#x7528;&#x6CD5;</li>
+</ul>
+<p><strong>Promise &#x7684;&#x5E94;&#x7528;</strong></p>
+<pre><code class="lang-javascript">{
+  <span class="hljs-keyword">let</span> ajax = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;i am ajax2&apos;</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>)</span>{
+      setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+        resolve()
+      }, <span class="hljs-number">4000</span>);
+    })
+  };
+
+  ajax().then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;Promise&apos;</span>, <span class="hljs-string">&apos;i am then&apos;</span>);
+  })
+}
+</code></pre>
+<p><strong>Promise &#x6355;&#x83B7;&#x5F02;&#x5E38;</strong></p>
+<pre><code class="lang-javascript">{
+  <span class="hljs-comment">// &#x6355;&#x83B7;&#x5F02;&#x5E38;</span>
+
+  <span class="hljs-keyword">let</span> ajax = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">num</span>)</span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;&#x6267;&#x884C;4&apos;</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>)</span>{
+      <span class="hljs-keyword">if</span>(num&gt;<span class="hljs-number">5</span>){
+        resolve();
+      } <span class="hljs-keyword">else</span> {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">&apos;&#x51FA;&#x9519;&#x4E86;&apos;</span>);
+      }
+    })
+  }
+
+  ajax(<span class="hljs-number">4</span>).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;log&apos;</span>, <span class="hljs-number">6</span>);
+  }).catch(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>)</span>{
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&apos;catch&apos;</span>, err);
+  })
+}
+</code></pre>
+<p><strong> Promise All </strong></p>
+<pre><code class="lang-javascript">{
+  <span class="hljs-comment">// Promise All</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadImg</span>(<span class="hljs-params">src</span>)</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>)</span>{
+      <span class="hljs-keyword">let</span> img = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&apos;img&apos;</span>);
+
+      img.src = src;
+      img.onload=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+        resolve(img);
+      }
+      img.onerror=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>)</span>{
+        reject(err);
+      }
+    })
+  }
+
+    <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showImgs</span>(<span class="hljs-params">imgs</span>)</span>{
+      imgs.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">img</span>)</span>{
+        <span class="hljs-built_in">document</span>.body.appendChild(img);
+      })
+    }
+
+    <span class="hljs-built_in">Promise</span>.all([
+      loadImg(<span class="hljs-string">&apos;http://i4.buimg.com/567571/df1ef0720bea6832.png&apos;</span>),
+      loadImg(<span class="hljs-string">&apos;http://i4.buimg.com/567571/2b07ee25b08930ba.png&apos;</span>),
+      loadImg(<span class="hljs-string">&apos;http://i2.buimg.com/567571/5eb8190d6b2a1c9c.png&apos;</span>)
+    ]).then(showImgs)
+}
+</code></pre>
+<p><strong>Promise Race</strong></p>
+<pre><code class="lang-javascript">{
+  <span class="hljs-comment">// Promise race</span>
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">loadImg</span>(<span class="hljs-params">src</span>)</span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve, reject</span>)</span>{
+      <span class="hljs-keyword">let</span> img = <span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&apos;img&apos;</span>);
+
+      img.src = src;
+      img.onload=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{
+        resolve(img);
+      }
+      img.onerror=<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">err</span>)</span>{
+        reject(err);
+      }
+    })
+  }
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">showImg</span>(<span class="hljs-params">img</span>)</span>{
+    <span class="hljs-keyword">let</span> p=<span class="hljs-built_in">document</span>.createElement(<span class="hljs-string">&apos;p&apos;</span>);
+    p.appendChild(img);
+    <span class="hljs-built_in">document</span>.body.appendChild(p);
+  }
+
+  <span class="hljs-built_in">Promise</span>.race([
+    loadImg(<span class="hljs-string">&apos;http://i4.buimg.com/567571/df1ef0720bea6832.png&apos;</span>),
+    loadImg(<span class="hljs-string">&apos;http://i4.buimg.com/567571/2b07ee25b08930ba.png&apos;</span>),
+    loadImg(<span class="hljs-string">&apos;http://i2.buimg.com/567571/5eb8190d6b2a1c9c.png&apos;</span>)
+  ]).then(showImg)
+}
+</code></pre>
+<h2 id="316-iterator">3.16 Iterator</h2>
+<ul>
+<li>&#x4EC0;&#x4E48;&#x662F; Iterator</li>
+<li>Iterator &#x7684;&#x57FA;&#x672C;&#x7528;&#x6CD5;</li>
+<li>for...of</li>
+</ul>
 
                                 
                                 </section>
@@ -523,7 +635,7 @@ set.delete(item);
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"第三章 es6 语法","level":"1.4","depth":1,"previous":{"title":"第二章 项目构建","level":"1.3","depth":1,"path":"02.md","ref":"02.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"03.md","mtime":"2017-10-12T06:10:31.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-10-12T06:14:18.066Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"第三章 es6 语法","level":"1.4","depth":1,"previous":{"title":"第二章 项目构建","level":"1.3","depth":1,"path":"02.md","ref":"02.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"03.md","mtime":"2017-10-16T06:16:53.000Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2017-10-16T06:17:07.948Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
