@@ -1,5 +1,5 @@
 import 'babel-polyfill'
-import './class/lesson3-18'
+// import './class/lesson3-19'
 
 // class Test{
 //     constructor(){
@@ -11,3 +11,8 @@ import './class/lesson3-18'
 //
 // document.body.innerHTML = test.a;
 // document.body.innerHTML = 'hello world'
+
+// import {A, test, Hello} from './class/lesson3-19';
+import lesson19 from './class/lesson3-19';
+
+console.log(lesson19.A, lesson19.test, lesson19.Hello);
