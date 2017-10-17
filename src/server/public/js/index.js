@@ -55,27 +55,11 @@
 
 	__webpack_require__(2);
 
-	var _lesson = __webpack_require__(331);
+	var _lottery = __webpack_require__(331);
 
-	var _lesson2 = _interopRequireDefault(_lesson);
+	var _lottery2 = _interopRequireDefault(_lottery);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	console.log(_lesson2.default.A, _lesson2.default.test, _lesson2.default.Hello);
-	// import './class/lesson3-19'
-
-	// class Test{
-	//     constructor(){
-	//         this.a = 'hello world'
-	//     }
-	// }
-	//
-	// let test = new Test();
-	//
-	// document.body.innerHTML = test.a;
-	// document.body.innerHTML = 'hello world'
-
-	// import {A, test, Hello} from './class/lesson3-19';
 
 /***/ }),
 /* 2 */
@@ -9272,56 +9256,41 @@
 
 /***/ }),
 /* 331 */
-/***/ (function(module, exports) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	__webpack_require__(332);
 
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	__webpack_require__(333);
 
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	__webpack_require__(334);
 
-	// export let A=123;
-	//
-	// export function test(){
-	//   console.log('test');
-	// }
-	//
-	// export class Hello{
-	//   test(){
-	//     console.log('class function test');
-	//   }
-	// }
+	__webpack_require__(335);
 
-	var A = 123;
+/***/ }),
+/* 332 */
+/***/ (function(module, exports) {
 
-	function test() {
-	  console.log('test');
-	}
+	"use strict";
 
-	var Hello = function () {
-	  function Hello() {
-	    _classCallCheck(this, Hello);
-	  }
+/***/ }),
+/* 333 */
+/***/ (function(module, exports) {
 
-	  _createClass(Hello, [{
-	    key: 'test',
-	    value: function test() {
-	      console.log('class function test');
-	    }
-	  }]);
+	"use strict";
 
-	  return Hello;
-	}();
+/***/ }),
+/* 334 */
+/***/ (function(module, exports) {
 
-	exports.default = {
-	  A: A,
-	  Hello: Hello,
-	  test: test
-	};
+	"use strict";
+
+/***/ }),
+/* 335 */
+/***/ (function(module, exports) {
+
+	"use strict";
 
 /***/ })
 /******/ ]);

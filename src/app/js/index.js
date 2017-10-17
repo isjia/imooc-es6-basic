@@ -13,6 +13,8 @@ import 'babel-polyfill'
 // document.body.innerHTML = 'hello world'
 
 // import {A, test, Hello} from './class/lesson3-19';
-import lesson19 from './class/lesson3-19';
+// import lesson19 from './class/lesson3-19';
+//
+// console.log(lesson19.A, lesson19.test, lesson19.Hello);
 
-console.log(lesson19.A, lesson19.test, lesson19.Hello);
+import Lottery from './lottery'
