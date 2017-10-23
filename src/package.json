@@ -32,6 +32,7 @@
     "yargs": "^8.0.2"
   },
   "dependencies": {
-    "gulp-sequence": "^0.4.6"
+    "gulp-sequence": "^0.4.6",
+    "jquery": "^3.2.1"
   }
 }
