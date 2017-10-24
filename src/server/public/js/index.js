@@ -9343,7 +9343,73 @@
 /* 334 */
 /***/ (function(module, exports) {
 
-	"use strict";
+	'use strict';
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	var Calculate = function () {
+	  function Calculate() {
+	    _classCallCheck(this, Calculate);
+	  }
+
+	  _createClass(Calculate, [{
+	    key: 'computeCount',
+
+	    /**
+	     * [computeCount 计算下注数]
+	     * @param  {number} active    [当前选中的号码]
+	     * @param  {string} play_name [当前玩法标识]
+	     * @return {number}           [计算出来的注数]
+	     */
+	    value: function computeCount(active, play_name) {
+	      var count = 0; // 默认注数为0
+	      var exist = this.play_list.has(play_name);
+	      var arr = new Array(active).fill('0'); // 指定长度为active的数字，并填充‘0’
+	      if (exist && play_name.at(0) === 'r') {
+	        count = Calculate.combine(arr, play_name.split('')[1]);
+	      }
+	      return count;
+	    }
+
+	    /**
+	     * [combine 组合运算]
+	     * @param  {array} arr  [参与组合运算的数组]
+	     * @param  {number} size [组合运算的基数]
+	     * @return {number}      [计算注数]
+	     */
+
+	  }], [{
+	    key: 'combine',
+	    value: function combine(arr, size) {
+	      var allResult = [];
+	      (function f(arr, size, result) {
+	        var arrLen = arr.length;
+	        if (size > arrLen) {
+	          return;
+	        }
+	        if (size === arrLen) {
+	          allResult.push([].concat(result, arr));
+	        } else {
+	          for (var i = 0; i < arrLen; i++) {
+	            var newResult = [].concat(result);
+	            newResult.push(arr[i]);
+	            if (size === 1) {
+	              allResult.push(newResult);
+	            } else {
+	              var newArr = [].concat(arr);
+	              newArr.splice(0, i + 1);
+	              f(newArr, size - 1, newResult);
+	            }
+	          }
+	        }
+	      })(arr, size, []);
+	    }
+	  }]);
+
+	  return Calculate;
+	}();
 
 /***/ }),
 /* 335 */
@@ -9409,6 +9475,7 @@
 	    key: 'getOpenCode',
 	    value: function getOpenCode(issue) {
 	      var self = this;
+	      // 箭头函数的this指向他定义时的this指向，而不是运行时的this指向
 	      return new Promise(function (resolve, reject) {
 	        _jquery2.default.ajax({
 	          url: '/get/opencode',
